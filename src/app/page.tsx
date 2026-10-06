@@ -89,14 +89,15 @@ export default function HomePage() {
           </div>
           <div className="order-first lg:order-none">
             <Image
-              src="/images/drone-building-inspection-hero.svg"
-              alt="ドローンが工場・ビルを点検するイメージイラスト"
-              width={1200}
-              height={800}
+              src="/images/drone-hero.webp"
+              alt="空中でホバリングする点検用ドローン"
+              width={1600}
+              height={1067}
               priority
-              unoptimized
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="h-auto w-full rounded-2xl border border-line shadow-sm"
             />
+            <p className="mt-1.5 text-right text-[11px] text-muted">写真：Bureau of Land Management（パブリックドメイン）</p>
           </div>
         </div>
         <div className="container-x pb-8">

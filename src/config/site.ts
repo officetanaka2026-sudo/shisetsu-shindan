@@ -6,9 +6,9 @@ export const site = {
   name: "施設診断技研",
   nameKana: "しせつしんだんぎけん",
   tagline: "空から診る。施設を守る。",
-  heroTitle: ["高所・広範囲の点検を、", "もっと安全に、速く、明朗に。"],
+  heroTitle: ["点検の人手と時間を、", "ドローンで減らす。"],
   heroLead:
-    "施設診断技研は、東京都・神奈川県・埼玉県・千葉県を中心に、ドローンを活用した建物・設備点検を提供します。",
+    "足場や高所作業の人員を減らし、点検の人件費と作業時間を抑えます。人手が限られる中小企業の施設管理を、ドローンで支えます。",
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://shisetsu-shindan.jp",
   domain: "shisetsu-shindan.jp",
   locale: "ja_JP",
