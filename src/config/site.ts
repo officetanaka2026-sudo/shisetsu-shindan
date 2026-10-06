@@ -8,7 +8,9 @@ export const site = {
   tagline: "空から診る。施設を守る。",
   heroTitle: ["点検の人手と時間を、", "ドローンで減らす。"],
   heroLead:
-    "足場や高所作業の人員を減らし、点検の人件費と作業時間を抑えます。人手が限られる中小企業の施設管理を、ドローンで支えます。",
+    "足場や高所作業の人員を減らし、点検の人件費と作業時間を抑えます。点検結果はデータとして整理して納品し、人手が限られる中小企業の施設管理を支えます。",
+  /** ヒーローに並べる強み（点検のデータ化） */
+  heroPoints: ["撮影位置・写真番号つきで整理", "報告書と撮影データで納品", "次回点検と並べて比較できる"],
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://shisetsu-shindan.jp",
   domain: "shisetsu-shindan.jp",
   locale: "ja_JP",

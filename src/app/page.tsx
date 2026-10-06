@@ -28,7 +28,7 @@ const trust: { icon: IconName; label: string; sub: string }[] = [
   { icon: "area", label: "関東対応", sub: "東京・神奈川・埼玉・千葉" },
   { icon: "yen", label: "明朗料金", sub: "事前に費用感が分かる" },
   { icon: "check", label: "法人対応", sub: "管理会社・工場・建設会社" },
-  { icon: "document", label: "無料見積", sub: "お見積りは無料" },
+  { icon: "database", label: "点検をデータ化", sub: "写真・報告書で記録を残す" },
 ];
 
 const problems = [
@@ -40,10 +40,10 @@ const problems = [
 ];
 
 const reasons = [
-  { n: "01", title: "料金が分かりやすい", text: "料金の目安を公開し、60秒で概算を確認できます。" },
-  { n: "02", title: "4分野をまとめて相談できる", text: "太陽光・建設現場・屋根外壁・工場倉庫を、1か所で相談できます。" },
-  { n: "03", title: "関東中心の対応", text: "東京・神奈川・埼玉・千葉を中心に、現地へ伺います。" },
-  { n: "04", title: "データを残せる", text: "写真・動画と報告書を、点検記録として保存できます。" },
+  { n: "01", title: "点検結果をデータとして残せる", text: "撮影位置・写真番号・異常候補を整理した報告書と撮影データで納品。次回点検との比較や修繕計画、社内共有にそのまま使えます。" },
+  { n: "02", title: "料金が分かりやすい", text: "料金の目安を公開し、60秒で概算を確認できます。" },
+  { n: "03", title: "4分野をまとめて相談できる", text: "太陽光・建設現場・屋根外壁・工場倉庫を、1か所で相談できます。" },
+  { n: "04", title: "関東中心の対応", text: "東京・神奈川・埼玉・千葉を中心に、現地へ伺います。" },
   { n: "05", title: "単発・定期どちらも相談可", text: "必要なタイミングで、1回だけでも定期でも対応を相談できます。" },
   { n: "06", title: "必要な点検のみ提案", text: "目的に合わない点検は勧めず、必要な内容だけをご提案します。" },
 ];
@@ -73,6 +73,16 @@ export default function HomePage() {
               <Phrases text={site.heroTitle[1]} />
             </h1>
             <p className="mt-5 max-w-xl text-base leading-8 text-muted">{site.heroLead}</p>
+            <ul className="mt-5 grid gap-2 text-sm font-bold text-navy sm:text-base">
+              {site.heroPoints.map((p) => (
+                <li key={p} className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue text-white">
+                    <Icon name="check" className="h-3.5 w-3.5" />
+                  </span>
+                  {p}
+                </li>
+              ))}
+            </ul>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <TrackedLink
                 href="#estimate"
@@ -200,7 +210,7 @@ export default function HomePage() {
         <ProcessSteps />
       </Section>
 
-      <Section eyebrow="REPORT" title="撮影して終わりではなく、報告書まで" lead="撮影した画像を整理し、状態が分かる形でお渡しします。" tone="white">
+      <Section eyebrow="DATA" title="点検を、使えるデータとして残す" lead="撮影して終わりではなく、画像を撮影位置・写真番号つきで整理し、報告書と撮影データでお渡しします。次回の点検と並べて比較でき、修繕計画や社内共有にも使えます。" tone="white">
         <ReportPreview />
       </Section>
 
