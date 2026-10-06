@@ -44,17 +44,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2 text-navy" aria-label={`${site.name} トップページ`}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-navy text-white" aria-hidden="true">
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-              <circle cx="12" cy="12" r="2" />
-              <path d="M10 10L6 6M14 10l4-4M10 14l-4 4M14 14l4 4" />
-              <circle cx="5" cy="5" r="1.6" />
-              <circle cx="19" cy="5" r="1.6" />
-              <circle cx="5" cy="19" r="1.6" />
-              <circle cx="19" cy="19" r="1.6" />
-            </svg>
-          </span>
+        <Link href="/" className="flex shrink-0 items-center text-navy" aria-label={`${site.name} トップページ`}>
           <span className="text-lg font-bold tracking-wide">{site.name}</span>
         </Link>
 
