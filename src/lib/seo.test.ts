@@ -21,8 +21,8 @@ describe("SEO metadata", () => {
     expect(len(homeDescription)).toBeLessThanOrEqual(175);
   });
   it("タイトルに料金が自動反映される", () => {
-    expect(serviceTitle("solar")).toContain("29,800円〜");
-    expect(serviceTitle("construction")).toContain("39,800円〜");
+    expect(serviceTitle("solar")).toContain("49,800円〜");
+    expect(serviceTitle("construction")).toContain("49,800円〜");
     expect(serviceTitle("roof-wall")).toContain("赤外線調査対応");
   });
   it("ガイド記事: 必須項目があり、料金トークンが残っておらず、サービスLPへ内部リンクがある", () => {
@@ -55,8 +55,8 @@ describe("SEO metadata", () => {
 
 describe("料金トークン", () => {
   it("設定値から生成される", () => {
-    expect(priceTokens["wall-infrared-sqm"]).toBe("130円/㎡〜");
-    expect(priceTokens["wall-example-1000"]).toBe("130,000円〜");
-    expect(priceTokens["wall-example-500"]).toBe("120,000円〜");
+    expect(priceTokens["wall-infrared-sqm"]).toBe("250円/㎡");
+    expect(priceTokens["wall-example-1000"]).toBe("250,000円〜");
+    expect(priceTokens["wall-example-500"]).toBe("150,000円〜");
   });
 });

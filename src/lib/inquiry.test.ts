@@ -46,7 +46,7 @@ describe("通知メール", () => {
     expect(text).toContain("点検内容：屋根・外壁点検");
     expect(text).toContain("点検対象：外壁");
     expect(text).toContain("所在地：神奈川県 川崎市");
-    expect(text).toContain("130,000円〜390,000円");
+    expect(text).toContain("250,000円〜750,000円");
     expect(text).toContain("電話：03-1234-5678");
   });
   it("件名に改行が混入しない（ヘッダーインジェクション対策）", () => {

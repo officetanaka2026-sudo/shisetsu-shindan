@@ -13,7 +13,7 @@ export const priceTokens: Record<string, string> = {
   ...solar,
   "solar-min": yenFrom(Math.min(...pricing.solar.tiers.flatMap((t) => (t.from ? [t.from] : [])))),
   "roof-visible": yenFrom(pricing.roofWall.visibleSimple),
-  "wall-infrared-sqm": `${pricing.roofWall.infraredPerSqm}円/㎡〜`,
+  "wall-infrared-sqm": `${pricing.roofWall.infraredPerSqm}円/㎡`,
   "wall-infrared-min": yenFrom(pricing.roofWall.infraredMinimum),
   "wall-example-500": wallExample(500),
   "wall-example-1000": wallExample(1000),

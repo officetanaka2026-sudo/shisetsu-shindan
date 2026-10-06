@@ -3,7 +3,8 @@
  *
  * ・料金ページ（/pricing）、各サービスLPの料金、60秒簡易見積、SEOタイトルの料金表記は
  *   すべてこのファイルの値から生成されます。ここを書き換えれば全体に反映されます。
- * ・金額はすべて「仮料金」です。運用が確定したら実際の価格に変更してください（税抜/税込の表記は notes で管理）。
+ * ・金額は2026-10時点の他社公開料金（相場）に合わせて設定しています。根拠は workspace/notes/pricing-research-2026-10-06.md。
+ * ・屋根・外壁・工場倉庫は「㎡単価 × 面積（最低料金あり）」で計算します。小規模（〜500㎡）は1日数件回る前提、大規模は1日1件の前提です。
  * ・価格ロジックをコンポーネント内にハードコードしないこと。
  */
 
@@ -17,17 +18,17 @@ type Opt = { id: string; label: string; hint?: string };
 export const UNKNOWN_ID = "unknown";
 
 export const pricing = {
-  taxNote: "表示金額は仮の目安です（税の扱いは正式見積時にご案内します）。",
+  taxNote: "表示金額は税抜の目安です。",
   disclaimer: "現場環境・飛行条件・対象範囲等によって正式料金は変わります。",
 
   // ---------------------------------------------------------------- 太陽光
   solar: {
     question: "設備容量はどれくらいですか？",
     tiers: [
-      { id: "lt50", label: "50kW未満", from: 29800 },
-      { id: "50-200", label: "50〜200kW", from: 49800 },
-      { id: "200-500", label: "200〜500kW", from: 69800 },
-      { id: "500-1000", label: "500kW〜1MW", from: 99800 },
+      { id: "lt50", label: "50kW未満", from: 49800 },
+      { id: "50-200", label: "50〜200kW", from: 69800 },
+      { id: "200-500", label: "200〜500kW", from: 89800 },
+      { id: "500-1000", label: "500kW〜1MW", from: 129800 },
       { id: "ge1000", label: "1MW以上", individual: true },
       { id: UNKNOWN_ID, label: "分からない", unknown: true },
     ] as (Opt & { from?: number; individual?: boolean; unknown?: boolean })[],
@@ -37,10 +38,10 @@ export const pricing = {
   construction: {
     typeQuestion: "どのような撮影ですか？",
     types: [
-      { id: "single", label: "単発", from: 39800, perVisit: false },
-      { id: "monthly1", label: "月1回程度", from: 29800, perVisit: true },
-      { id: "monthly2", label: "月2回以上", from: 29800, perVisit: true },
-      { id: "fullterm", label: "工期全体で定期撮影", from: 29800, perVisit: true },
+      { id: "single", label: "単発", from: 49800, perVisit: false },
+      { id: "monthly1", label: "月1回程度", from: 39800, perVisit: true },
+      { id: "monthly2", label: "月2回以上", from: 39800, perVisit: true },
+      { id: "fullterm", label: "工期全体で定期撮影", from: 39800, perVisit: true },
       { id: UNKNOWN_ID, label: "まだ決まっていない", unknown: true },
     ] as (Opt & { from?: number; perVisit?: boolean; unknown?: boolean })[],
     /** 定期料金（／回）が適用される目安回数。これ未満の場合は単発料金になる場合があります。 */
@@ -53,7 +54,7 @@ export const pricing = {
       { id: UNKNOWN_ID, label: "分からない" },
     ] as Opt[],
     /** true にすると大規模現場を「個別見積」にします */
-    largeSiteIndividual: false,
+    largeSiteIndividual: true,
   },
 
   // ---------------------------------------------------------------- 屋根・外壁
@@ -71,14 +72,15 @@ export const pricing = {
       { id: "500-1000", label: "500〜1,000㎡", lower: 500, upper: 1000 },
       { id: "1000-3000", label: "1,000〜3,000㎡", lower: 1000, upper: 3000 },
       { id: "3000-5000", label: "3,000〜5,000㎡", lower: 3000, upper: 5000 },
-      { id: "ge5000", label: "5,000㎡以上", lower: 5000, upper: null, roofIndividual: true },
+      { id: "ge5000", label: "5,000㎡以上", lower: 5000, upper: null, individual: true },
       { id: UNKNOWN_ID, label: "分からない", unknown: true },
-    ] as (Opt & { lower?: number; upper?: number | null; roofIndividual?: boolean; unknown?: boolean })[],
-    /** 可視光簡易点検（屋根）の基本料金 */
+    ] as (Opt & { lower?: number; upper?: number | null; individual?: boolean; unknown?: boolean })[],
+    /** 可視光点検（屋根）の㎡単価と最低料金（〜500㎡は最低料金） */
+    visiblePerSqm: 100,
     visibleSimple: 49800,
     /** 赤外線外壁調査（㎡単価）と最低料金 */
-    infraredPerSqm: 130,
-    infraredMinimum: 120000,
+    infraredPerSqm: 250,
+    infraredMinimum: 150000,
   },
 
   // ---------------------------------------------------------------- 工場・倉庫
@@ -94,17 +96,17 @@ export const pricing = {
     ] as (Opt & { plan: "visibleRoof" | "detailed" | "solar" | "unknown" })[],
     scaleQuestion: "施設規模",
     scales: [
-      { id: "lt1000", label: "〜1,000㎡" },
-      { id: "1000-3000", label: "1,000〜3,000㎡" },
-      { id: "3000-5000", label: "3,000〜5,000㎡" },
-      { id: "5000-10000", label: "5,000〜10,000㎡" },
+      { id: "lt1000", label: "〜1,000㎡", lower: 0, upper: 1000 },
+      { id: "1000-3000", label: "1,000〜3,000㎡", lower: 1000, upper: 3000 },
+      { id: "3000-5000", label: "3,000〜5,000㎡", lower: 3000, upper: 5000 },
+      { id: "5000-10000", label: "5,000〜10,000㎡", lower: 5000, upper: 10000 },
       { id: "ge10000", label: "10,000㎡以上", individual: true },
       { id: UNKNOWN_ID, label: "分からない" },
-    ] as (Opt & { individual?: boolean })[],
-    /** 可視光屋根点検 */
-    visibleRoof: 69800,
-    /** 赤外線等を含む詳細点検 */
-    detailed: 149800,
+    ] as (Opt & { lower?: number; upper?: number; individual?: boolean })[],
+    /** 可視光屋根点検の最低料金（㎡単価は roofWall.visiblePerSqm を使用） */
+    visibleRoof: 49800,
+    /** 赤外線等を含む詳細点検の最低料金（㎡単価は roofWall.infraredPerSqm を使用） */
+    detailed: 150000,
   },
 
   // ---------------------------------------------------------------- 所在地（簡易見積STEP3）

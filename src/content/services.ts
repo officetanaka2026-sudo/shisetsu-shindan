@@ -204,9 +204,9 @@ const roofWall: ServiceContent = {
     src: "/images/drone-roof-wall-inspection.svg",
     alt: "建物の外壁と屋根を点検するドローンのイメージイラスト",
   },
-  metaDescription: `ドローンによる外壁調査・屋根点検。足場を組まずに、可視光撮影と赤外線調査で、ひび割れや剥離候補など劣化状況の把握を支援し、報告書にまとめます。屋根の簡易点検は${yenFrom(
+  metaDescription: `ドローンによる外壁調査・屋根点検。足場を組まずに、可視光撮影と赤外線調査で、ひび割れや剥離候補など劣化状況の把握を支援し、報告書にまとめます。屋根の可視光点検は${r.visiblePerSqm}円/㎡（最低${yenFrom(
     r.visibleSimple,
-  )}、赤外線外壁調査は${r.infraredPerSqm}円/㎡〜。東京・神奈川・埼玉・千葉を中心に関東対応、見積無料。`,
+  )}）、赤外線外壁調査は${r.infraredPerSqm}円/㎡。東京・神奈川・埼玉・千葉を中心に関東対応、見積無料。`,
   h1: "ドローン外壁調査・屋根点検（赤外線調査対応）",
   heroLead:
     "足場を組まずに、ドローンで外壁と屋根の状態を確認します。可視光撮影に加え、赤外線カメラによる外壁調査にも対応。費用の目安は60秒で確認できます。",
@@ -247,12 +247,13 @@ const roofWall: ServiceContent = {
   reportLead: "撮影して終わりではなく、状態が分かるよう整理してお渡しします。",
   reportPoints: ["施設概要・撮影日・撮影条件", "撮影位置図・写真番号", "可視光画像・赤外線画像", "異常候補箇所とコメント", "全体の所見"],
   priceNotes: [
-    `屋根の可視光簡易点検は ${yenFrom(r.visibleSimple)} が目安です。`,
-    `赤外線外壁調査は ${r.infraredPerSqm}円/㎡〜（最低料金 ${yenFrom(r.infraredMinimum)}）が目安です。`,
+    `屋根の可視光点検は ${r.visiblePerSqm}円/㎡（最低料金 ${yenFrom(r.visibleSimple)}）が目安です。`,
+    `赤外線外壁調査は ${r.infraredPerSqm}円/㎡（最低料金 ${yenFrom(r.infraredMinimum)}）が目安です。`,
+    "5,000㎡以上の建物は個別にお見積りします。",
     "建物の高さ・形状・周辺環境・撮影条件により、正式料金は変わります。",
   ],
   faqs: [
-    { q: "ドローンによる外壁調査の費用はどのくらいですか？", a: `赤外線外壁調査は ${r.infraredPerSqm}円/㎡〜（最低料金 ${yenFrom(r.infraredMinimum)}）、屋根の可視光簡易点検は ${yenFrom(r.visibleSimple)} が目安です。建物の規模や条件により変わりますので、60秒見積で目安をご確認ください。` },
+    { q: "ドローンによる外壁調査の費用はどのくらいですか？", a: `赤外線外壁調査は ${r.infraredPerSqm}円/㎡（最低料金 ${yenFrom(r.infraredMinimum)}）、屋根の可視光点検は ${r.visiblePerSqm}円/㎡（最低料金 ${yenFrom(r.visibleSimple)}）が目安です。建物の規模や条件により変わりますので、60秒見積で目安をご確認ください。` },
     { q: "赤外線調査では何が分かりますか？", a: "外壁タイルやモルタルの浮き・剥離が疑われる箇所を、表面の温度の違いから確認できる場合があります。ただし、天候・時間帯・建物の仕上げ材などの条件に左右されます。" },
     { q: "ドローンだけで外壁調査は完結しますか？", a: "建物の状況や調査の目的により異なります。ドローンの撮影に加えて、打診や目視による確認が必要になる場合もあります。ご相談の際に、最適な方法をご提案します。" },
     { q: "雨や風の日でも調査できますか？", a: "雨天・強風の日は安全のため飛行を見合わせます。また、赤外線調査は天候や気温・日射の条件が結果に影響するため、適した日程を調整します。" },
@@ -274,7 +275,7 @@ const roofWall: ServiceContent = {
             ["確認できること", "ひび割れ・欠け・汚れ・塗装劣化・破損", "浮き・剥離が疑われる箇所（表面温度の違い）"],
             ["向いている対象", "屋根・外壁全般の外観確認", "タイル張り・モルタル仕上げなどの外壁"],
             ["条件", "明るさと視界があればよい", "天候・気温・日射・仕上げ材の影響を受ける"],
-            ["料金の目安", `${yenFrom(r.visibleSimple)}（屋根の簡易点検）`, `${r.infraredPerSqm}円/㎡〜（最低 ${yenFrom(r.infraredMinimum)}）`],
+            ["料金の目安", `${r.visiblePerSqm}円/㎡（最低 ${yenFrom(r.visibleSimple)}）`, `${r.infraredPerSqm}円/㎡（最低 ${yenFrom(r.infraredMinimum)}）`],
           ],
         },
       ],
@@ -373,8 +374,8 @@ const factory: ServiceContent = {
   reportLead: "屋根全体の状態を、位置が分かる形で整理してお渡しします。",
   reportPoints: ["施設概要・撮影日・撮影条件", "屋根の全体図と撮影位置", "写真番号つきの画像", "異常候補箇所とコメント", "（赤外線を含む場合）温度画像と所見"],
   priceNotes: [
-    `可視光の屋根点検は ${yenFrom(f.visibleRoof)} が目安です。`,
-    `赤外線等を含む詳細点検は ${yenFrom(f.detailed)} が目安です。`,
+    `可視光の屋根点検は ${pricing.roofWall.visiblePerSqm}円/㎡（最低料金 ${yenFrom(f.visibleRoof)}）が目安です。`,
+    `赤外線等を含む詳細点検は ${pricing.roofWall.infraredPerSqm}円/㎡（最低料金 ${yenFrom(f.detailed)}）が目安です。`,
     "10,000㎡以上の大型施設は個別にお見積りします。",
     "施設の規模・形状・立地・稼働状況により、正式料金は変わります。",
   ],

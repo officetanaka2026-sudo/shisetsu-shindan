@@ -22,14 +22,14 @@ export function getPriceRows(service: ServiceId): PriceRow[] {
         }));
     case "roof-wall":
       return [
-        { label: "屋根 可視光簡易点検", price: yenFrom(pricing.roofWall.visibleSimple) },
-        { label: "外壁 赤外線調査", price: `${pricing.roofWall.infraredPerSqm}円/㎡〜` },
-        { label: "赤外線外壁調査の最低料金", price: yenFrom(pricing.roofWall.infraredMinimum) },
+        { label: "屋根 可視光点検", price: `${pricing.roofWall.visiblePerSqm}円/㎡`, note: `最低料金 ${yenFrom(pricing.roofWall.visibleSimple)}（〜500㎡）` },
+        { label: "外壁 赤外線調査", price: `${pricing.roofWall.infraredPerSqm}円/㎡`, note: `最低料金 ${yenFrom(pricing.roofWall.infraredMinimum)}` },
+        { label: "5,000㎡以上", price: "個別見積" },
       ];
     case "factory-warehouse":
       return [
-        { label: "可視光 屋根点検", price: yenFrom(pricing.factory.visibleRoof) },
-        { label: "赤外線等を含む詳細点検", price: yenFrom(pricing.factory.detailed) },
+        { label: "可視光 屋根点検", price: `${pricing.roofWall.visiblePerSqm}円/㎡`, note: `最低料金 ${yenFrom(pricing.factory.visibleRoof)}` },
+        { label: "赤外線等を含む詳細点検", price: `${pricing.roofWall.infraredPerSqm}円/㎡`, note: `最低料金 ${yenFrom(pricing.factory.detailed)}` },
         { label: "大型施設（10,000㎡以上 等）", price: "個別見積" },
       ];
   }

@@ -130,13 +130,20 @@ function calcConstruction(a: Answers): EstimateResult {
   };
 }
 
+/** ㎡単価 × 面積の範囲を、最低料金を下回らないように計算する */
+function areaRange(lower: number | undefined, upper: number | null | undefined, perSqm: number, minimum: number): { min: number; max?: number } {
+  const min = Math.max(minimum, (lower ?? 0) * perSqm);
+  const max = upper != null ? Math.max(minimum, upper * perSqm) : undefined;
+  return { min, max };
+}
+
 function calcRoofWall(a: Answers): EstimateResult {
   const r = pricing.roofWall;
   const target = r.targets.find((t) => t.id === a.target);
   const area = r.areas.find((x) => x.id === a.area);
   if (!target || !area) return needsCheck();
 
-  const refs = [`屋根の可視光簡易点検：${yenFrom(r.visibleSimple)}`, `赤外線外壁調査：${r.infraredPerSqm}円/㎡〜（最低${yenFrom(r.infraredMinimum)}）`];
+  const refs = [`屋根の可視光点検：${r.visiblePerSqm}円/㎡（最低${yenFrom(r.visibleSimple)}）`, `赤外線外壁調査：${r.infraredPerSqm}円/㎡（最低${yenFrom(r.infraredMinimum)}）`];
   if (target.id === UNKNOWN_ID) return needsCheck(refs, ["点検対象が決まっていなくてもご相談いただけます。"]);
 
   const wantsRoof = target.id === "roof" || target.id === "both";
@@ -148,27 +155,25 @@ function calcRoofWall(a: Answers): EstimateResult {
       return {
         status: "priced",
         min: r.visibleSimple,
-        lines: [{ label: "屋根 可視光簡易点検", min: r.visibleSimple }],
+        lines: [{ label: "屋根 可視光点検", min: r.visibleSimple }],
         notes: ["広さにより料金は変動します。面積が分かればより正確な目安をお伝えできます。"],
       };
     return needsCheck(refs, ["外壁の赤外線調査は面積によって料金が決まるため、広さを確認後にお見積りします。"]);
   }
 
+  if (area.individual)
+    return { status: "individual", reason: "5,000㎡以上の建物は、規模・形状に応じて個別にお見積りします。", notes: [] };
+
   const lines: PriceLine[] = [];
   const notes: string[] = [];
 
   if (wantsRoof) {
-    if (area.roofIndividual)
-      return { status: "individual", reason: "5,000㎡以上の屋根は、規模・形状に応じて個別にお見積りします。", notes: [] };
-    lines.push({ label: "屋根 可視光簡易点検", min: r.visibleSimple });
+    lines.push({ label: "屋根 可視光点検", ...areaRange(area.lower, area.upper, r.visiblePerSqm, r.visibleSimple) });
+    notes.push(`屋根の可視光点検は ${r.visiblePerSqm}円/㎡（最低料金 ${yenFrom(r.visibleSimple)}）で計算しています。`);
   }
   if (wantsWall) {
-    const lowerRaw = (area.lower ?? 0) * r.infraredPerSqm;
-    const upperRaw = area.upper != null ? area.upper * r.infraredPerSqm : undefined;
-    const min = Math.max(r.infraredMinimum, lowerRaw);
-    const max = upperRaw !== undefined ? Math.max(r.infraredMinimum, upperRaw) : undefined;
-    lines.push({ label: "外壁 赤外線調査", min, max });
-    notes.push(`外壁の赤外線調査は ${r.infraredPerSqm}円/㎡〜（最低料金 ${yenFrom(r.infraredMinimum)}）で計算しています。`);
+    lines.push({ label: "外壁 赤外線調査", ...areaRange(area.lower, area.upper, r.infraredPerSqm, r.infraredMinimum) });
+    notes.push(`外壁の赤外線調査は ${r.infraredPerSqm}円/㎡（最低料金 ${yenFrom(r.infraredMinimum)}）で計算しています。`);
   }
   const min = lines.reduce((s, l) => s + l.min, 0);
   const hasMax = lines.some((l) => l.max !== undefined);
@@ -184,18 +189,29 @@ function calcFactory(a: Answers): EstimateResult {
   if (scale.individual)
     return { status: "individual", reason: "10,000㎡以上の大型施設は、規模・点検範囲に応じて個別にお見積りします。", notes: [] };
 
+  const r = pricing.roofWall;
+  const scaleNote = scale.lower === undefined ? ["施設の広さが分かれば、より正確な目安をお伝えできます。"] : [];
+
   switch (place.plan) {
     case "visibleRoof": {
       const label = place.id === "roof" ? "可視光屋根点検" : `可視光点検（${place.label}）`;
-      return { status: "priced", min: f.visibleRoof, lines: [{ label, min: f.visibleRoof }], notes: [] };
-    }
-    case "detailed":
+      const range = areaRange(scale.lower, scale.upper, r.visiblePerSqm, f.visibleRoof);
       return {
         status: "priced",
-        min: f.detailed,
-        lines: [{ label: "赤外線等を含む詳細点検（施設全体）", min: f.detailed }],
-        notes: ["点検範囲・施設の形状により料金は変動します。"],
+        ...range,
+        lines: [{ label, ...range }],
+        notes: [`可視光点検は ${r.visiblePerSqm}円/㎡（最低料金 ${yenFrom(f.visibleRoof)}）で計算しています。`, ...scaleNote],
       };
+    }
+    case "detailed": {
+      const range = areaRange(scale.lower, scale.upper, r.infraredPerSqm, f.detailed);
+      return {
+        status: "priced",
+        ...range,
+        lines: [{ label: "赤外線等を含む詳細点検（施設全体）", ...range }],
+        notes: [`詳細点検は ${r.infraredPerSqm}円/㎡（最低料金 ${yenFrom(f.detailed)}）で計算しています。`, "点検範囲・施設の形状により料金は変動します。", ...scaleNote],
+      };
+    }
     case "solar":
       return needsCheck(
         pricing.solar.tiers.flatMap((t) => (t.from ? [`太陽光設備 ${t.label}：${yenFrom(t.from)}`] : [])),
@@ -203,7 +219,7 @@ function calcFactory(a: Answers): EstimateResult {
       );
     default:
       return needsCheck(
-        [`可視光屋根点検：${yenFrom(f.visibleRoof)}`, `赤外線等を含む詳細点検：${yenFrom(f.detailed)}`],
+        [`可視光屋根点検：${r.visiblePerSqm}円/㎡（最低${yenFrom(f.visibleRoof)}）`, `赤外線等を含む詳細点検：${r.infraredPerSqm}円/㎡（最低${yenFrom(f.detailed)}）`],
         ["点検したい場所が決まっていなくても、状況に合わせてご提案します。"],
       );
   }
