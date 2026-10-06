@@ -87,7 +87,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="order-first lg:order-none">
+          <div className="relative order-first pb-10 sm:pb-14 lg:order-none">
             <Image
               src="/images/hero-facility-aerial.webp"
               alt="ドローンで真上から撮影した工場・プラント施設"
@@ -95,8 +95,18 @@ export default function HomePage() {
               height={1067}
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="h-auto w-full rounded-2xl border border-line shadow-sm"
-            />          </div>
+              className="h-auto w-[88%] rounded-2xl border border-line shadow-sm"
+            />
+            <Image
+              src="/images/hero-drone.webp"
+              alt="上空を飛行する点検用ドローン"
+              width={900}
+              height={675}
+              priority
+              sizes="(min-width: 1024px) 22vw, 45vw"
+              className="absolute bottom-0 right-0 h-auto w-[45%] rounded-2xl border-4 border-white shadow-lg"
+            />
+          </div>
         </div>
         <div className="container-x pb-8">
           <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
