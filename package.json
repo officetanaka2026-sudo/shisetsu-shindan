@@ -9,7 +9,8 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "seo:monitor": "node scripts/seo-monitor.mjs"
   },
   "dependencies": {
     "next": "^16.3.8",

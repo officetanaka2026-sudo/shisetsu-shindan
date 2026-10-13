@@ -261,7 +261,7 @@ const roofWall: ServiceContent = {
     c.noFly,
     c.report,
   ],
-  guides: ["drone-exterior-wall-inspection", "drone-exterior-wall-inspection-cost", "infrared-exterior-wall-inspection", "drone-vs-scaffold-inspection"],
+  guides: ["drone-exterior-wall-inspection", "drone-exterior-wall-inspection-cost", "infrared-exterior-wall-inspection", "drone-vs-scaffold-inspection", "12jo-inspection-drone-infrared"],
   extraSections: [
     {
       id: "visible-infrared",

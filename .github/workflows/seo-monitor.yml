@@ -1,0 +1,55 @@
+# SEO監視（毎日）。本番サイトを巡回し、結果を「Actions」の実行結果（Summary）とアーティファクトに残します。
+# 問題が見つかった日は、Issue「SEO監視で問題が見つかりました」を作成・更新します。
+name: SEO監視
+
+on:
+  schedule:
+    - cron: "47 20 * * *" # 毎日 5:47（日本時間）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: 前回の結果を取得
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_id=$(gh run list --workflow seo-monitor.yml --status success --limit 1 --json databaseId -q '.[0].databaseId')
+          if [ -n "$run_id" ]; then gh run download "$run_id" -n seo-report -D reports; fi
+
+      - name: 監視を実行
+        id: monitor
+        continue-on-error: true
+        run: node scripts/seo-monitor.mjs https://shisetsu-shindan.jp --out reports
+
+      - name: 結果を Summary に表示
+        if: always()
+        run: cat reports/$(TZ=Asia/Tokyo date +%F).md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-report
+          path: reports/
+          retention-days: 90
+
+      - name: 問題があれば Issue に記録
+        if: steps.monitor.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="SEO監視で問題が見つかりました"
+          body_file=reports/$(TZ=Asia/Tokyo date +%F).md
+          num=$(gh issue list --state open --search "in:title $title" --json number -q '.[0].number')
+          if [ -n "$num" ]; then gh issue comment "$num" --body-file "$body_file"; else gh issue create --title "$title" --body-file "$body_file"; fi
