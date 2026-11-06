@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { site } from "@/config/site";
 import { pricing, startingPrice, yenFrom, type ServiceId } from "@/config/pricing";
 import { getService } from "@/content/services";
+import type { AreaContent } from "@/content/areas";
 
 /**
  * SEO関連のヘルパー。
@@ -106,6 +107,18 @@ export const serviceJsonLd = (id: ServiceId) => {
     areaServed: site.prefectures.map((p) => ({ "@type": "AdministrativeArea", name: p })),
   };
 };
+
+/** 都県別ページ：その都県を対象地域とするサービス群 */
+export const areaServiceJsonLd = (a: AreaContent) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: `${a.name}のドローン点検`,
+  serviceType: "ドローンによる建物・設備の点検",
+  description: a.metaDescription,
+  url: absoluteUrl(`/areas/${a.slug}`),
+  provider: { "@id": `${site.url}/#organization` },
+  areaServed: { "@type": "AdministrativeArea", name: a.name },
+});
 
 export const breadcrumbJsonLd = (items: { name: string; path: string }[]) => ({
   "@context": "https://schema.org",
