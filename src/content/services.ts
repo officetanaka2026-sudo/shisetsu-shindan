@@ -261,7 +261,7 @@ const roofWall: ServiceContent = {
     c.noFly,
     c.report,
   ],
-  guides: ["drone-exterior-wall-inspection", "drone-exterior-wall-inspection-cost", "infrared-exterior-wall-inspection", "drone-vs-scaffold-inspection"],
+  guides: ["drone-exterior-wall-inspection", "drone-exterior-wall-inspection-cost", "infrared-exterior-wall-inspection", "drone-vs-scaffold-inspection", "typhoon-roof-damage-check"],
   extraSections: [
     {
       id: "visible-infrared",
@@ -388,7 +388,7 @@ const factory: ServiceContent = {
     c.rain,
     c.noFly,
   ],
-  guides: ["factory-roof-inspection"],
+  guides: ["factory-roof-inspection", "typhoon-roof-damage-check"],
   extraSections: [
     {
       id: "comprehensive",
