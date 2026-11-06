@@ -3,6 +3,7 @@ import { site } from "@/config/site";
 import { contact } from "@/config/contact";
 import { features } from "@/config/features";
 import { serviceList } from "@/content/services";
+import { areaList } from "@/content/areas";
 import { TrackedAnchor } from "./TrackedLink";
 
 export function Footer() {
@@ -44,6 +45,16 @@ export function Footer() {
               <li key={s.slug}>
                 <Link href={`/services/${s.slug}`} className="hover:underline">
                   {s.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm font-bold text-white">対応エリア</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {areaList.map((a) => (
+              <li key={a.slug}>
+                <Link href={`/areas/${a.slug}`} className="hover:underline">
+                  {a.name}のドローン点検
                 </Link>
               </li>
             ))}
