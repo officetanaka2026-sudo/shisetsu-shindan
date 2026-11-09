@@ -84,6 +84,11 @@ export function Footer() {
                 点検の流れ
               </Link>
             </li>
+            <li>
+              <Link href="/partners" className="hover:underline">
+                施工会社・管理会社さまへ
+              </Link>
+            </li>
           </ul>
         </nav>
 
