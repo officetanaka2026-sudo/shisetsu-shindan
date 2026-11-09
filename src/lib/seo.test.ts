@@ -43,7 +43,7 @@ describe("SEO metadata", () => {
   });
   it("ガイド内の内部リンク先が実在する", () => {
     const slugs = new Set(getAllGuides().map((g) => g.slug));
-    const pages = new Set(["/pricing", "/estimate", "/contact", "/about", "/guides", "/privacy", "/services", "/areas", ...areaList.map((a) => `/areas/${a.slug}`)]);
+    const pages = new Set(["/pricing", "/estimate", "/contact", "/about", "/guides", "/privacy", "/services", "/areas", "/partners", ...areaList.map((a) => `/areas/${a.slug}`)]);
     for (const g of getAllGuides()) {
       for (const m of g.body.matchAll(/\]\((\/[^)]*)\)/g)) {
         const href = m[1];

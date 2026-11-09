@@ -7,7 +7,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 /** sitemap.xml を自動生成（サービス・ガイド・固定ページ）。noindex のページは含めません。 */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const fixed = ["/", "/services", "/pricing", "/estimate", "/contact", "/about", "/guides", "/areas", "/privacy"];
+  const fixed = ["/", "/services", "/pricing", "/estimate", "/contact", "/about", "/guides", "/areas", "/partners", "/privacy"];
   const entries: MetadataRoute.Sitemap = [
     ...fixed.map((p) => ({ url: absoluteUrl(p), changeFrequency: "monthly" as const, priority: p === "/" ? 1 : 0.7 })),
     ...serviceList.map((s) => ({ url: absoluteUrl(`/services/${s.slug}`), changeFrequency: "monthly" as const, priority: 0.9 })),
