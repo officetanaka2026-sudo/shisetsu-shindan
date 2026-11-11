@@ -81,7 +81,7 @@ const solar: ServiceContent = {
     c.area,
     c.free,
   ],
-  guides: ["solar-panel-hot-spot", "solar-inspection-method"],
+  guides: ["solar-panel-hot-spot", "solar-inspection-method", "solar-output-drop-causes"],
   extraSections: [
     {
       id: "conditions",
