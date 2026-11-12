@@ -388,7 +388,7 @@ const factory: ServiceContent = {
     c.rain,
     c.noFly,
   ],
-  guides: ["factory-roof-inspection", "typhoon-roof-damage-check"],
+  guides: ["factory-roof-inspection", "typhoon-roof-damage-check", "factory-warehouse-roof-leak-cause"],
   extraSections: [
     {
       id: "comprehensive",
