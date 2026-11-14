@@ -115,6 +115,8 @@ export const pricing = {
     { id: "kanagawa", label: "神奈川県" },
     { id: "saitama", label: "埼玉県" },
     { id: "chiba", label: "千葉県" },
+    { id: "gunma", label: "群馬県" },
+    { id: "tochigi", label: "栃木県" },
     { id: "other", label: "その他" },
   ] as Opt[],
 

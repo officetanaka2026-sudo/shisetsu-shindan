@@ -14,9 +14,9 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://shisetsu-shindan.jp",
   domain: "shisetsu-shindan.jp",
   locale: "ja_JP",
-  areaText: "東京都・神奈川県・埼玉県・千葉県を中心に関東対応",
+  areaText: "東京都・神奈川県・埼玉県・千葉県・群馬県・栃木県を中心に関東対応",
   areaOutsideText: "関東外については、案件内容によりご相談ください。",
-  prefectures: ["東京都", "神奈川県", "埼玉県", "千葉県"] as const,
+  prefectures: ["東京都", "神奈川県", "埼玉県", "千葉県", "群馬県", "栃木県"] as const,
   businessDescription: "ドローンを活用した建物・設備の撮影・点検・調査支援",
   // 事業所の住所・営業時間などが確定したらここに入力（入力後に構造化データへ反映できます）
   address: null as null | { postalCode: string; region: string; locality: string; street: string },
