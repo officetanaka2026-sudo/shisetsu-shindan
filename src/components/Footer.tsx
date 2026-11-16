@@ -49,7 +49,11 @@ export function Footer() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm font-bold text-white">対応エリア</p>
+          <p className="mt-6 text-sm font-bold text-white">
+            <Link href="/areas" className="hover:underline">
+              対応エリア
+            </Link>
+          </p>
           <ul className="mt-3 space-y-2 text-sm">
             {areaList.map((a) => (
               <li key={a.slug}>
