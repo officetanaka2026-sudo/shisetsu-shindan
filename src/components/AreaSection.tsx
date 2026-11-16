@@ -19,6 +19,11 @@ export function AreaSection() {
           ))}
         </ul>
         <p className="mt-4 text-sm text-muted">{site.areaOutsideText}</p>
+        <p className="mt-2 text-sm">
+          <Link href="/areas" className="font-bold text-blue underline underline-offset-4">
+            対応エリアと都県ごとの飛行の注意点を見る
+          </Link>
+        </p>
       </div>
       <div className="text-sm leading-8 text-muted sm:text-base">
         <p>
