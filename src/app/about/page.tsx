@@ -31,9 +31,10 @@ export default function AboutPage() {
     ["事業内容", site.businessDescription],
     ["対応地域", site.areaText],
     ...(site.representative ? ([["代表者", site.representative]] as [string, string][]) : []),
-    ...(site.address ? ([["所在地", `〒${site.address.postalCode} ${site.address.region}${site.address.locality}${site.address.street}`]] as [string, string][]) : []),
-    ...(site.qualifications.length ? ([["保有資格", site.qualifications.join("、")]] as [string, string][]) : []),
-    ...(site.insurance ? ([["加入保険", site.insurance]] as [string, string][]) : []),
+    ...(site.location ? ([["所在地", site.location]] as [string, string][]) : []),
+    ...(site.pilotPolicy ? ([["操縦者", site.pilotPolicy]] as [string, string][]) : []),
+    ...(site.insurancePolicy ? ([["保険", site.insurancePolicy]] as [string, string][]) : []),
+    ...(site.replyTime ? ([["お問い合わせへの返信", `${site.replyTime}にメールでご連絡します。`]] as [string, string][]) : []),
   ];
 
   return (

@@ -18,11 +18,16 @@ export const site = {
   areaOutsideText: "関東外については、案件内容によりご相談ください。",
   prefectures: ["東京都", "神奈川県", "埼玉県", "千葉県", "群馬県", "栃木県"] as const,
   businessDescription: "ドローンを活用した建物・設備の撮影・点検・調査支援",
-  // 事業所の住所・営業時間などが確定したらここに入力（入力後に構造化データへ反映できます）
-  address: null as null | { postalCode: string; region: string; locality: string; street: string },
-  representative: null as null | string,
-  qualifications: [] as string[],
-  insurance: null as null | string,
+  /** 所在地（市区町村まで。番地は載せない） */
+  location: "東京都目黒区" as null | string,
+  representative: "田中賢斗" as null | string,
+  /** 飛行を担当する操縦者の条件（実際に提携先を選ぶときの基準と一致させること） */
+  pilotPolicy:
+    "無人航空機操縦士（国家資格）を持つ操縦者、または国土交通省の飛行許可・承認を受けた操縦者が飛行を担当します。" as null | string,
+  /** 保険（操縦者側の加入を条件にしている。提携先を選ぶときに必ず確認すること） */
+  insurancePolicy: "対人・対物の賠償責任保険に加入している操縦者が担当します。" as null | string,
+  /** お問い合わせへの返信の目安（2026-11-17 kento決定） */
+  replyTime: "1営業日以内（土日祝を除く）" as null | string,
   foundedLabel: null as null | string,
 } as const;
 

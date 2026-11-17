@@ -1,3 +1,4 @@
+import { site } from "@/config/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -29,6 +30,7 @@ export default function ContactPage() {
               </Link>
               もご利用いただけます。
             </p>
+            {site.replyTime && <p className="mt-3 text-sm font-bold text-navy">お問い合わせには{site.replyTime}にメールでご返信します。</p>}
             {(contact.phone || contact.email) && (
               <p className="mt-3 text-sm text-muted">
                 {contact.phone && contact.phoneHref && (
