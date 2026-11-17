@@ -1,5 +1,6 @@
 "use client";
 
+import { site } from "@/config/site";
 import Link from "next/link";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { pricing, SERVICE_IDS, type ServiceId } from "@/config/pricing";
@@ -333,7 +334,7 @@ export function EstimateFlow({ initialService, pricingEnabled = true, placement 
               お見積りのご依頼を受け付けました
             </h3>
             <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-muted">
-              ご入力のメールアドレス宛に、担当者よりご連絡します。内容によっては、ご連絡までにお時間をいただく場合があります。
+              ご入力のメールアドレス宛に、{site.replyTime ? `${site.replyTime}に` : ""}担当者よりご連絡します。
             </p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/" className="btn btn-secondary">
