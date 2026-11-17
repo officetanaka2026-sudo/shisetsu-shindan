@@ -1,5 +1,6 @@
 "use client";
 
+import { site } from "@/config/site";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { serviceList } from "@/content/services";
@@ -65,7 +66,7 @@ export function ContactForm() {
           お問い合わせを受け付けました
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-muted">
-          ご入力のメールアドレス宛に、担当者よりご連絡します。内容によっては、ご連絡までにお時間をいただく場合があります。
+          ご入力のメールアドレス宛に、{site.replyTime ? `${site.replyTime}に` : ""}担当者よりご連絡します。
         </p>
         <Link href="/" className="btn btn-secondary mt-6">
           トップページへ戻る
