@@ -170,7 +170,7 @@ const construction: ServiceContent = {
     c.noFly,
     c.data,
   ],
-  guides: ["construction-drone-fixed-point-shooting"],
+  guides: ["construction-drone-fixed-point-shooting", "completion-photo-drone-aerial"],
   extraSections: [
     {
       id: "fixed-point",
