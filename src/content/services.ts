@@ -261,7 +261,7 @@ const roofWall: ServiceContent = {
     c.noFly,
     c.report,
   ],
-  guides: ["drone-exterior-wall-inspection", "drone-exterior-wall-inspection-cost", "infrared-exterior-wall-inspection", "drone-vs-scaffold-inspection", "typhoon-roof-damage-check", "mansion-large-scale-repair-survey", "rooftop-waterproofing-inspection", "drone-inspection-permission-preparation", "exterior-wall-tile-delamination", "drone-inspection-report-contents", "12jo-inspection-drone-infrared"],
+  guides: ["drone-exterior-wall-inspection", "drone-exterior-wall-inspection-cost", "infrared-exterior-wall-inspection", "drone-vs-scaffold-inspection", "typhoon-roof-damage-check", "mansion-large-scale-repair-survey", "rooftop-waterproofing-inspection", "drone-inspection-permission-preparation", "exterior-wall-tile-delamination", "drone-inspection-report-contents", "drone-roof-inspection-cost", "12jo-inspection-drone-infrared"],
   extraSections: [
     {
       id: "visible-infrared",

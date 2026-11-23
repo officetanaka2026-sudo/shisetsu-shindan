@@ -45,5 +45,6 @@
 | 27 | 公開 | 工場 外壁 点検 | 工場・倉庫の外壁（ALC・金属）の点検方法とドローンの使い方 | factory-warehouse | factory-exterior-wall-inspection | 日次タスク外で追加済み |
 | 28 | 公開 | 竣工写真 ドローン 空撮 | 竣工写真をドローンで空撮するときの準備と注意点 | construction | completion-photo-drone-aerial | 日次タスク外で追加済み |
 | 29 | 公開 | ドローン点検 報告書 内容 | ドローン点検の報告書の項目と見方、修繕見積への使い方 | roof-wall | drone-inspection-report-contents | 日次タスク外で追加済み |
+| 30 | 公開 | ドローン 屋根点検 費用 | ドローン屋根点検の費用の目安と、できること・できないこと | roof-wall | drone-roof-inspection-cost | 日次タスク外で追加済み（#15 と一部重なるので、#15 を書くときは重複を避ける） |
 
 新しいキーワードを思いついたら、表の末尾に追加してください。Search Console で実際に表示されている検索語が分かったら、それを優先して並べ替えます。
